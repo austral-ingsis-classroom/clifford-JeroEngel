@@ -1,0 +1,94 @@
+@startuml
+
+class FileSystem {
+  -root: Directory
+  -currentDirectory: Directory
+  +FileSystem()
+  +changeDirectory(path: String): String
+  +listDirectory(order: String): List<String>
+  +createFile(name: String): String
+  +createDirectory(name: String): String
+  +remove(name: String, recursive: boolean): String
+  +printWorkingDirectory(): String
+}
+
+interface Node{
+  +getName(): String
+    +getParent(): Directory
+}
+class Directory {
+  -name: String
+  -children: List<FileSystemElement>
+  +Directory(name: String)
+  +addElement(element: FileSystemElement): void
+  +removeElement(element: FileSystemElement): void
+  +getElement(name: String): FileSystemElement
+  +listElements(order: String): List<String>
+}
+
+
+
+class File {
+  +File(name: String)
+}
+
+interface Command {
+  +execute(): String
+}
+
+class LsCommand {
+  -fileSystem: FileSystem
+  -order: String
+  +LsCommand(fileSystem: FileSystem, order: String)
+  +execute(): String
+}
+
+class CdCommand {
+  -fileSystem: FileSystem
+  -path: String
+  +CdCommand(fileSystem: FileSystem, path: String)
+  +execute(): String
+}
+
+class TouchCommand {
+  -fileSystem: FileSystem
+  -fileName: String
+  +TouchCommand(fileSystem: FileSystem, fileName: String)
+  +execute(): String
+}
+
+class MkdirCommand {
+  -fileSystem: FileSystem
+  -dirName: String
+  +MkdirCommand(fileSystem: FileSystem, dirName: String)
+  +execute(): String
+}
+
+class RmCommand {
+  -fileSystem: FileSystem
+  -name: String
+  -recursive: boolean
+  +RmCommand(fileSystem: FileSystem, name: String, recursive: boolean)
+  +execute(): String
+}
+
+class PwdCommand {
+  -fileSystem: FileSystem
+  +PwdCommand(fileSystem: FileSystem)
+  +execute(): String
+}
+
+
+FileSystem *- Node
+Directory *- Node
+Node <|-- Directory
+Node <|-- File
+FileSystem *- Command
+Command <|-- LsCommand
+Command <|-- CdCommand
+Command <|-- TouchCommand
+Command <|-- MkdirCommand
+Command <|-- RmCommand
+Command <|-- PwdCommand
+
+@enduml
