@@ -17,18 +17,21 @@ interface Node{
     +getParent(): Directory
 }
 class Directory {
+  -parent: Directory
   -name: String
   -children: List<FileSystemElement>
-  +Directory(name: String)
-  +addElement(element: FileSystemElement): void
-  +removeElement(element: FileSystemElement): void
-  +getElement(name: String): FileSystemElement
-  +listElements(order: String): List<String>
+  +getName
+  +addChild(element: FileSystemElement): void
+  +removeChild(element: FileSystemElement): void
+  +getParent(name: String): FileSystemElement
+  +getChildren(order: String): List<String>
 }
 
 
 
 class File {
+    -name: String
+    -parent: Directory
   +File(name: String)
 }
 
