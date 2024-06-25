@@ -1,6 +1,6 @@
 package edu.austral.ingsis.clifford;
 
-public class File implements Node{
+public class File implements Node {
   private final String name;
   private final Directory parent;
 
@@ -9,7 +9,6 @@ public class File implements Node{
     this.parent = parent;
     parent.addChild(this);
   }
-
 
   @Override
   public String getName() {
